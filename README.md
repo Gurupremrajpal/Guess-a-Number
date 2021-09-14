@@ -1,5 +1,10 @@
 # Guess-a-Number
-Guess a number between 1 and 99 in seven attempts
+<br>
+<img src="Guess_Number.gif"> </img>
+<br>
+<a href="https://gurupremrajpal.github.io/Guess-a-Number/Guess-a-Number/index.html"> Website </a>
+<br>
+<br>
 
 # Tech Stack used - 
 Front-end : HTML, CSS <br>
