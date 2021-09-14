@@ -8,6 +8,7 @@
 
 # Tech Stack used - 
 Front-end : HTML, CSS <br>
+Back-end : JavaScript <br>
 
 Made ✌🏻 by <a href="https://www.linkedin.com/in/guruprem-singh-rajpal-67b486122/"> Guruprem Rajpal </a>
 <br>
