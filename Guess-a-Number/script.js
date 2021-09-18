@@ -1,88 +1,64 @@
-//Adding the event listner 
-document.querySelector("button").addEventListener("click", submit);
+document.querySelector (".sumbit-button").addEventListener("click", displayContent);
+document.querySelector (".reset_button").addEventListener("click", resetBox);
 
-//Score Update 
-var score = 0;
-var q_scr = 20;
-//var ans2 = "Markup language";
-var ans1 = "Internet Programming"
-var ans4 = "Dr. Miguel Lara";
-
-
-//the options for question 2).
-var radi = ["Markup language", "Programming Language", "Machine Language"];
-
- radi = _.shuffle(radi);
-
-// creates radio buttons 
-for (i=0; i<radi.length; i++) {
-  $("#radiodiv").append(`<input type='radio' name='answerchoices' value='${radi[i]}'> ${radi[i]}`);
-} 
-
-//options for question3 using checkboxes
-var check = ["HTML ","CSS ","C ","Java "];
-check = _.shuffle(check);
+var gCount =0;
+var randomNumber = Math.floor(Math.random() * 99) +1;
+var reset = false;
+var win = 0;
+var lose= 0;
+var guess = '';
+var tries =0;
 
 
-for(i=0; i<check.length; i++){
-  $("#checkdiv").append(`<input type='checkbox' name='checkboxanswers' value='${check[i]}'> ${check[i]}`);
-}
+function displayContent(){
 
-function submit(){
-
-  //question 1
-  let ques1= $("input").val();
-
-  if(ques1.toLowerCase()==ans1.toLowerCase()){
-      score+=q_scr;
-     $(".message").html('<span class="text-success"> Correct </span>')
-  }
-  else{
-     $(".message").html('<span class="text-danger"> Incorrect </span>')
-  }
-
-  //question 2 
-  //let rad = document.querySelector("input[name=answerchoices]:checked").value;
-   
-  if ($("#radiodiv [type='radio']:checked").val() == "Markup language"){
-    score+=q_scr;
-    $(".q2message").html('<span class="text-success"> Correct </span>')
-
-  }else{
-       $(".q2message").html('<span class="text-danger"> Incorrect </span>')
-
-  }
+  gCount= document.querySelector("input").value;
   
-  //question 3
-  let a1 = "HTML ";
-  let a2 = "CSS ";
-  let a3 = "C ";
-  let a4 = "Java ";
-  //var checkboxes = document.getElementById("checkdiv");
-let checkbox = document.querySelector("#checkdiv").checked;
 
-  if ((checkbox==a1 && checkbox==a2 ) && (checkbox != a3 && checkbox != a4) ) {
-     $(".q3message").html('<span class="text-danger"> Incorrect </span>')
-    }else{
-      score+=q_scr;
-       $(".q3message").html('<span class="text-success"> Correct </span>')
+  if (gCount <1 || gCount >99){
+    document.querySelector(".result").innerHTML = "Invalid input. Enter a number between 1 and 99.";
+    document.querySelector("#input").value = "";
+    return;
+  }  
+  guess += gCount + ' ';
+
+  document.querySelector("#previous_guesses").innerHTML = `${guess}`;
+  tries = tries +1;
+  console.log(tries);
+
+  if(gCount == randomNumber) {
+    document.querySelector(".result").innerHTML = `Congratulations !! You got it right: ${tries}`;
+    win++;
+    document.querySelector(".win_span").innerHTML = `${win}`;
+  }
+  else {
+    document.querySelector (".result").innerHTML = "Wrong!";
+
+    if(gCount < randomNumber){
+      document.querySelector("#hint").innerHTML= "Your guess was too low.";
     }
-  
-  
-
-  // question 4
- let ques4= $("#q4").val();
-
-  if(ques4==ans4){
-      score+=q_scr;
-     $(".q4message").html('<span class="text-success"> Correct </span>')
+    else{
+      document.querySelector("#hint").innerHTML = "Your guess was too high";
+    }
   }
-  else{
-
-     $(".q4message").html('<span class="text-danger"> Incorrect </span>')
+  if (tries >=7) {
+    document.querySelector(".result").innerHTML = "Sorry, you lost!";
+    lose++;
+    document.querySelector(".lose_span").innerHTML = `${lose}`;
+    document.querySelector(".sumbit-button").disabled = true;
+    document.querySelector("#input").disabled = true;
   }
-
-    // Displaying score
-  document.querySelector("#scr").innerHTML= `Score : ${score}`;
-
 }
+
+function resetBox(){
+  document.querySelector(".result").innerHTML = "";
+  document.querySelector("#hint").innerHTML = "";
+  document.querySelector("#previous_guesses").innerHTML = "";
+  guess = '';
+  tries = 0;
+  console.log("reset button clicked");
+  document.querySelector("#input").value = "";
+  document.querySelector(".sumbit-button").disabled = false;
+  document.querySelector("#input").disabled = false;
+}
+  
