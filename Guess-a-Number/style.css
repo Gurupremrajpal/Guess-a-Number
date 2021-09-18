@@ -1,0 +1,39 @@
+body{
+  background-image: url("img/bg.jpg");
+  background-attachment: fixed;
+  justify-content: center;
+}
+
+header{
+  background-color:  rgb(220, 220, 220);
+  text-align: center;
+  padding: 1px;
+}
+
+.div1{
+  background-color: rgb(220, 220, 220);
+  text-align: center;
+}
+
+.card{
+  margin: 0 auto;
+}
+
+.card-body{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+footer{
+    text-align: center;
+    color: greenyellow;
+    width:150;  
+    position: absolute;
+    font-family: "Rancho", cursive;
+}
+
+.footerimg{
+  float: left;
+  width: 9%;
+}
