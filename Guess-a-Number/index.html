@@ -1,71 +1,64 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Guess a Number</title>
+document.querySelector (".sumbit-button").addEventListener("click", displayContent);
+document.querySelector (".reset_button").addEventListener("click", resetBox);
 
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+var gCount =0;
+var randomNumber = Math.floor(Math.random() * 99) +1;
+var reset = false;
+var win = 0;
+var lose= 0;
+var guess = '';
+var tries =0;
 
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  
-  <body>
 
-    <header>
-      Guess a Number
-    </header>
+function displayContent(){
 
-    <div class="div1">
-      <div id="win">
-        <span class=" text-primary"> Win: </span>
-        <span class="win-span  text-primary"> 
-          0
-        </span>
-      </div>
-
-      <div id="lose">
-        <span class=" text-danger"> Losse: </span>
-        <span class="lose_span text-danger"> 0 </span>
-      </div>
-      
-    </div>
-    <br>
-    
-    <div class="card" style="width: 18rem;">
-  
-      <div class="card-body">
-        <h5 class="card-title">Guess a number between 1 and 99 in seven attempts</h5>
-        
-       <input id="input"type="text" placeholder="Enter a Number">
-       <br>
-        <button type="button" class="sumbit-button btn btn-outline-success">Submit</button>
-        <br>
-        <button type="button" class="reset_button btn btn-outline-danger">Reset</button>
-      </div>
-      
-      <div class="card-body">
-        <h4> Previous Guesses </h4>
-        <p id="previous_guesses"> </p>
-        <div class="result bg-danger text-light"> </div>
-        <div id="hint"></div> 
-      </div>
-    </div>
-
-    <footer>
-        <br>
-        <hr>
-        <br>
-        <br>
-        <img src="img/csumb_logo.png" class="footerimg" alt="csumblogo">
-        CST336 Internet Programming. 2021ⓒ <cite>Rajpal</cite>.<br>
-      <strong>Disclaimer</strong>: The information in this webpage is fictious and is only for academic purposes.
-	  </footer>
+  gCount= document.querySelector("input").value;
   
 
+  if (gCount <1 || gCount >99){
+    document.querySelector(".result").innerHTML = "Invalid input. Enter a number between 1 and 99.";
+    document.querySelector("#input").value = "";
+    return;
+  }  
+  guess += gCount + ' ';
 
-    
-    <script src="script.js"></script>
-  </body>
-</html>
+  document.querySelector("#previous_guesses").innerHTML = `${guess}`;
+  tries = tries +1;
+  console.log(tries);
+
+  if(gCount == randomNumber) {
+    document.querySelector(".result").innerHTML = `Congratulations !! You got it right: ${tries}`;
+    win++;
+    document.querySelector(".win_span").innerHTML = `${win}`;
+  }
+  else {
+    document.querySelector (".result").innerHTML = "Wrong!";
+
+    if(gCount < randomNumber){
+      document.querySelector("#hint").innerHTML= "Your guess was too low.";
+    }
+    else{
+      document.querySelector("#hint").innerHTML = "Your guess was too high";
+    }
+  }
+  if (tries >=7) {
+    document.querySelector(".result").innerHTML = "Sorry, you lost!";
+    lose++;
+    document.querySelector(".lose_span").innerHTML = `${lose}`;
+    document.querySelector(".sumbit-button").disabled = true;
+    document.querySelector("#input").disabled = true;
+  }
+}
+
+function resetBox(){
+  document.querySelector(".result").innerHTML = "";
+  document.querySelector("#hint").innerHTML = "";
+  document.querySelector("#previous_guesses").innerHTML = "";
+  guess = '';
+  tries = 0;
+  console.log("reset button clicked");
+  document.querySelector("#input").value = "";
+  document.querySelector(".sumbit-button").disabled = false;
+  document.querySelector("#input").disabled = false;
+}
+  
